@@ -48,6 +48,7 @@ const char *get_data(Result from, void **to) {
   if (from.ok != NO_ERROR) return from.error_msg;
   else {
     *to = from.data;
+    return NULL;
   }
 }
 

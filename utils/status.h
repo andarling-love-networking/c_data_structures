@@ -20,7 +20,11 @@ typedef enum status_t status_t;
  * non-zero
  */
 enum status_t {
-  NO_ERROR= 0, SEGFAULT, NO_SPACE, INVALID_SIZE, HEAP_FAILURE, INVALID_INSTANCE,
+  NO_ERROR= 0, 
+  SEGFAULT, // accessing invalid address
+  NO_SPACE,
+  INVALID_SIZE,
+  HEAP_FAILURE,
   INVALID_INDEX
 };
 
