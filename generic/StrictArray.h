@@ -72,7 +72,7 @@ struct StrictArray {
  * 
  * @return a \c `Result` type to the successfully allocated data or a error message
  */
-Result new_StrictArray(void *data, size_t type_size, size_t size, size_t cap) {
+Result new_StrictArray(void *data, size_t size, size_t cap, size_t type_size) {
   if (!data) {
     size = 0;
   }
@@ -125,23 +125,7 @@ Result from_StrictArray(StrictArray *from) {
     };
   }
 
-  StrictArray *result = (StrictArray*)malloc(
-    sizeof(StrictArray) + from->capacity * from->type_size
-  );
-  if (!result) {
-    return (Result) {
-      .ok = HEAP_FAILURE,
-      .error_msg = "AllocationError: Not enough memory in the heap\n"
-    };
-  }
-  else {
-    result->capacity = from->capacity, result->size = from->size;
-    memcpy(result->data, from->data, from->size * from->type_size);
-    return (Result) {
-      .ok = NO_ERROR,
-      .data = result
-    };
-  }
+  return new_StrictArray(from->data, from->size, from->capacity, from->type_size);
 }
 
 /**

@@ -117,23 +117,7 @@ Result from_StrictArray_int(StrictArray_int *from) {
     };
   }
 
-  StrictArray_int *result = (StrictArray_int*)malloc(
-    sizeof(StrictArray_int) + from->capacity * sizeof(int)
-  );
-  if (!result) {
-    return (Result) {
-      .ok = HEAP_FAILURE,
-      .error_msg = "AllocationError: Not enough memory in the heap\n"
-    };
-  }
-  else {
-    result->capacity = from->capacity, result->size = from->size;
-    memcpy(result->data, from->data, from->capacity * sizeof(int));
-    return (Result) {
-      .ok = NO_ERROR,
-      .data = result
-    };
-  }
+  return new_StrictArray_int(from->data, from->size, from->capacity);
 }
 
 /**
